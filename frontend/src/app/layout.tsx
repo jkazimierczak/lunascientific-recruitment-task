@@ -13,7 +13,9 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: Layout) {
 	return (
 		<html lang="en">
-			<body className={`${inter.className} flex h-0 min-h-screen flex-col`}>{children}</body>
+			<body className={`${inter.className} flex h-0 min-h-screen flex-col`}>
+				<div className="mx-5 my-6">{children}</div>
+			</body>
 		</html>
 	);
 }

@@ -7,7 +7,7 @@ export default async function Home() {
 	const hasAnyModules = modules.length > 0;
 
 	return (
-		<main className="mx-5 my-6">
+		<main>
 			<h1 className="mb-4 text-2xl font-bold tracking-tight">Your Modules</h1>
 
 			{hasAnyModules && (

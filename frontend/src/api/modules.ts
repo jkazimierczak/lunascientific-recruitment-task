@@ -1,4 +1,4 @@
-import { apiModulesUrl, apiPongUrl } from "@/api/endpoints";
+import { apiModulesUrl, apiPongUrl, getApiModuleUrl } from "@/api/endpoints";
 import { ApiError } from "@/api/errors";
 import { type ModuleInfo } from "@/api/responseTypes";
 
@@ -30,5 +30,14 @@ export async function getModules() {
 		return (await res.json()) as ModuleInfo[];
 	} catch (e) {
 		return [];
+	}
+}
+
+export async function getModuleById(id: string) {
+	try {
+		const res = await makeRequest(getApiModuleUrl(id));
+		return (await res.json()) as ModuleInfo;
+	} catch (e) {
+		return null;
 	}
 }
