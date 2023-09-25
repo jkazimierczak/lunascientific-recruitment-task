@@ -4,6 +4,7 @@ import { ChevronLeft, Pencil } from "lucide-react";
 import { getModuleById } from "@/api/modules";
 import { AvailabilityChip, TemperatureChip } from "@/components";
 import { Button } from "@/components/ui/button";
+import { Heading } from "@/components/Heading";
 
 type ModulePageProps = {
 	params: {
@@ -26,7 +27,7 @@ export default async function ModulePage({ params: { moduleId } }: ModulePagePro
 				<Link href="/">
 					<ChevronLeft />
 				</Link>
-				<h1 className="text-2xl font-bold tracking-tight">{name}</h1>
+				<Heading>{name}</Heading>
 			</header>
 			<div className="mb-4 ml-8 flex gap-2">
 				<AvailabilityChip isAvailable={available} />

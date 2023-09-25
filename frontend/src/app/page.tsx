@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { getModules } from "@/api/modules";
 import { Module } from "@/components";
+import { Heading } from "@/components/Heading";
 
 export default async function Home() {
 	const modules = await getModules();
@@ -8,7 +9,7 @@ export default async function Home() {
 
 	return (
 		<main>
-			<h1 className="mb-4 text-2xl font-bold tracking-tight">Your Modules</h1>
+			<Heading className="mb-4">Your Modules</Heading>
 
 			{hasAnyModules && (
 				<div className="space-y-2">
