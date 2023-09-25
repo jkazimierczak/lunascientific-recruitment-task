@@ -8,10 +8,12 @@ const config: Config = {
 		"./src/app/**/*.{js,ts,jsx,tsx,mdx}",
 	],
 	theme: {
-		colors: {
-			primary: colors.green["500"],
-		},
 		extend: {
+			colors: {
+				primary: colors.green["500"],
+				success: colors.green["500"],
+				error: colors.red["500"],
+			},
 			backgroundImage: {
 				"gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
 				"gradient-conic": "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
