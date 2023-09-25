@@ -2,7 +2,7 @@ import { apiModulesUrl, apiPongUrl } from "@/api/endpoints";
 import { ApiError } from "@/api/errors";
 import { type ModuleInfo } from "@/api/responseTypes";
 
-async function makeRequest(input: RequestInfo, init?: RequestInit | undefined) {
+async function makeRequest(input: RequestInfo | URL, init?: RequestInit | undefined) {
 	try {
 		const res = await fetch(input, init);
 		if (res.ok) {
