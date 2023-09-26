@@ -1,4 +1,4 @@
-const baseApiUrl = new URL("http://localhost:3001");
+export const baseApiUrl = new URL("http://localhost:3001");
 
 // GET	/ping
 //		Pong!
