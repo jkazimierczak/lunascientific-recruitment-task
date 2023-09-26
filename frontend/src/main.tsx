@@ -1,4 +1,4 @@
-import "./app/globals.css";
+import "./globals.css";
 import ReactDOM from "react-dom/client";
 import React from "react";
 import { App } from "@/App";

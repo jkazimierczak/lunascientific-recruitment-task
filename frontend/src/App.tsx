@@ -1,18 +1,34 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import React from "react";
-import { HomeRoute } from "@/routes/home";
+import { HomePage } from "@/routes/page";
+import { Error } from "@/routes/error";
+import { ModulePage } from "@/routes/module/page";
+import { ModuleEditPage } from "@/routes/module/edit";
 
 const router = createBrowserRouter([
 	{
 		path: "/",
-		element: <HomeRoute />,
+		element: <HomePage />,
+		errorElement: <Error />,
+	},
+	{
+		path: "module/:moduleId",
+		element: <ModulePage />,
+		errorElement: <Error />,
+	},
+	{
+		path: "module/:moduleId/edit",
+		element: <ModuleEditPage />,
+		errorElement: <Error />,
 	},
 ]);
 
 export function App() {
 	return (
-		<div className="mx-5 my-6 flex h-0 min-h-screen flex-col">
-			<RouterProvider router={router} />
+		<div className="flex h-0 min-h-screen flex-col">
+			<div className="mx-5 my-6 flex-grow">
+				<RouterProvider router={router} />
+			</div>
 		</div>
 	);
 }

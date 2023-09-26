@@ -1,22 +1,19 @@
-import { notFound } from "next/navigation";
-import Link from "next/link";
 import { ChevronLeft, Pencil } from "lucide-react";
-import { getModuleById } from "@/api/modules";
+import { Link } from "react-router-dom";
 import { AvailabilityChip, TemperatureChip } from "@/components";
 import { Button } from "@/components/ui/button";
 import { Heading } from "@/components/Heading";
+import { useGetModule } from "@/hooks/useGetModule";
 
-export type ModulePageProps = {
-	params: {
-		moduleId: string;
-	};
-};
+export function ModulePage() {
+	const { data: moduleInfo, isLoading, error } = useGetModule();
 
-export default async function ModulePage({ params: { moduleId } }: ModulePageProps) {
-	const moduleInfo = await getModuleById(moduleId);
+	if (isLoading) return <p>Loading</p>;
+
+	console.log(error);
 
 	if (!moduleInfo) {
-		notFound();
+		throw new Error("Module not found");
 	}
 
 	const { name, available, targetTemperature, description } = moduleInfo;
@@ -24,7 +21,7 @@ export default async function ModulePage({ params: { moduleId } }: ModulePagePro
 	return (
 		<main>
 			<header className="mb-4 flex items-center gap-2">
-				<Link href="/">
+				<Link to="/">
 					<ChevronLeft />
 				</Link>
 				<Heading>{name}</Heading>
@@ -38,7 +35,7 @@ export default async function ModulePage({ params: { moduleId } }: ModulePagePro
 				<p>{description}</p>
 			</div>
 			<Button className="w-full" asChild>
-				<Link href={`/module/${moduleId}/edit`}>
+				<Link to={`/module/${moduleInfo.id}/edit`}>
 					<Pencil className="mr-2 h-4 w-4" />
 					Edit module
 				</Link>

@@ -1,5 +1,5 @@
-import { baseApiUrl } from "@/api/endpoints";
-import { ApplicationError } from "@/error";
+import { baseApiUrl } from "./constants";
+import { ApplicationError } from "@/lib/error";
 
 export class ApiError extends ApplicationError {
 	response: Response;

@@ -3,7 +3,7 @@ import { Heading } from "@/components/Heading";
 import { useGetModules } from "@/api/modules/useGetModules";
 import { Module } from "@/components";
 
-export function HomeRoute() {
+export function HomePage() {
 	const { data: modules } = useGetModules();
 	const hasAnyModules = !!modules?.length;
 
