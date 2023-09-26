@@ -12,12 +12,12 @@ export function TemperatureChip({ temperature, targetTemperature }: TemperatureC
 	return (
 		<div
 			className={clsx({
-				"bg-neutral-100 flex w-fit items-center gap-1.5 rounded px-1.5 py-0.5": true,
+				"flex w-fit items-center gap-1.5 rounded bg-neutral-100 px-1.5 py-0.5": true,
 				"text-success": temperatureWithinBoundary,
 				"text-error": !temperatureWithinBoundary,
 			})}
 		>
-			<Thermometer className="fill-current h-3 w-3" />
+			<Thermometer className="h-3 w-3 fill-current" />
 			{temperature} °C
 		</div>
 	);

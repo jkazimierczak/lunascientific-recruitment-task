@@ -7,11 +7,11 @@ export function AvailabilityChip({ isAvailable }: AvailabilityChipProps) {
 	const displayText = isAvailable ? "Available" : "Unavailable";
 
 	return (
-		<div className="bg-neutral-100 text-neutral-500 flex w-fit items-center gap-1.5 rounded px-1.5 py-0.5">
+		<div className="flex w-fit items-center gap-1.5 rounded bg-neutral-100 px-1.5 py-0.5 text-neutral-500">
 			<Circle
 				className={clsx({
 					"h-3 w-3": true,
-					"text-primary fill-primary": isAvailable,
+					"fill-primary text-primary": isAvailable,
 				})}
 			/>
 			{displayText}
