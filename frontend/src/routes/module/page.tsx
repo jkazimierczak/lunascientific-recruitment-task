@@ -10,8 +10,6 @@ export function ModulePage() {
 
 	if (isLoading) return <p>Loading</p>;
 
-	console.log(error);
-
 	if (!moduleInfo) {
 		throw new Error("Module not found");
 	}
