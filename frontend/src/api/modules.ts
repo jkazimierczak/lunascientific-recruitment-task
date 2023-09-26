@@ -1,10 +1,13 @@
 import { apiModulesUrl, apiPongUrl, getApiModuleUrl } from "@/api/endpoints";
 import { ApiError } from "@/api/errors";
-import { type ModuleInfo } from "@/api/responseTypes";
+import { type ModuleInfo, type ModuleInfoPatch } from "@/api/responseTypes";
 
 async function makeRequest(input: RequestInfo | URL, init?: RequestInit | undefined) {
 	try {
-		const res = await fetch(input, init);
+		const res = await fetch(input, {
+			...init,
+			cache: "no-store",
+		});
 		if (res.ok) {
 			return res;
 		}
@@ -40,4 +43,16 @@ export async function getModuleById(id: string) {
 	} catch (e) {
 		return null;
 	}
+}
+
+export async function patchModuleById(id: string, moduleData: ModuleInfoPatch) {
+	// try {
+	const res = await makeRequest(getApiModuleUrl(id), {
+		method: "PATCH",
+		headers: {
+			"Content-Type": "application/json",
+		},
+		body: JSON.stringify(moduleData),
+	});
+	return (await res.json()) as ModuleInfo;
 }

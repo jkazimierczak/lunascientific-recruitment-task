@@ -5,3 +5,5 @@ export type ModuleInfo = {
 	available: boolean;
 	targetTemperature: number;
 };
+
+export type ModuleInfoPatch = Pick<ModuleInfo, "name" | "description" | "targetTemperature">;

@@ -6,7 +6,7 @@ import { AvailabilityChip, TemperatureChip } from "@/components";
 import { Button } from "@/components/ui/button";
 import { Heading } from "@/components/Heading";
 
-type ModulePageProps = {
+export type ModulePageProps = {
 	params: {
 		moduleId: string;
 	};
