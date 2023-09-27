@@ -1,6 +1,6 @@
 import { ChevronLeft, Pencil } from "lucide-react";
 import { Link } from "react-router-dom";
-import { AvailabilityChip, TemperatureChip } from "@/components";
+import { AvailabilityChip, TemperatureChip } from "@/components/Chip";
 import { Button } from "@/components/ui/button";
 import { Heading } from "@/components/Heading";
 import { useGetModule } from "@/hooks/useGetModule";

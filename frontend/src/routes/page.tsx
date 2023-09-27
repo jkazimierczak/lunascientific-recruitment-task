@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { Heading } from "@/components/Heading";
 import { useGetModules } from "@/api/modules/useGetModules";
-import { Module } from "@/components";
+import { Module } from "@/components/Module";
 import { useSocketData } from "@/hooks/useSocketData";
 import { Statusbar } from "@/components/Statusbar";
 
