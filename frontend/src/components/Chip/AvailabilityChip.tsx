@@ -4,10 +4,12 @@ import { Chip } from "./Chip";
 
 type AvailabilityChipProps = {
 	isAvailable: boolean;
-	text?: {
-		available: string;
-		unavailable: string;
-	};
+	text?:
+		| string
+		| {
+				available: string;
+				unavailable: string;
+		  };
 	tooltip?: string;
 };
 
@@ -22,7 +24,12 @@ export function AvailabilityChip({
 	text = defaultDisplayText,
 	tooltip = defaultTooltip,
 }: AvailabilityChipProps) {
-	const displayText = isAvailable ? text?.available : text?.unavailable;
+	const getDisplayText = () => {
+		if (typeof text === "string") {
+			return text;
+		}
+		return isAvailable ? text?.available : text?.unavailable;
+	};
 
 	return (
 		<Chip className="w-fit" tooltip={tooltip}>
@@ -32,7 +39,7 @@ export function AvailabilityChip({
 					"fill-primary text-primary": isAvailable,
 				})}
 			/>
-			{displayText}
+			{getDisplayText()}
 		</Chip>
 	);
 }

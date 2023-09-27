@@ -1,4 +1,5 @@
-import { AvailabilityChip } from "@/components/Chip";
+import { Ring } from "@uiball/loaders";
+import { AvailabilityChip, Chip } from "@/components/Chip";
 
 type StatusbarProps = {
 	isSocketConnected: boolean;
@@ -8,11 +9,18 @@ type StatusbarProps = {
 export function Statusbar({ isSocketConnected, className }: StatusbarProps) {
 	return (
 		<div className={className}>
-			<AvailabilityChip
-				isAvailable={isSocketConnected}
-				tooltip="Realtime data status"
-				text={{ available: "Realtime", unavailable: "Realtime not available" }}
-			/>
+			{isSocketConnected ? (
+				<AvailabilityChip
+					isAvailable={isSocketConnected}
+					tooltip="Connection status"
+					text="Realtime"
+				/>
+			) : (
+				<Chip className="w-fit" tooltip="Connection status">
+					<Ring size={12} />
+					Connecting
+				</Chip>
+			)}
 		</div>
 	);
 }
