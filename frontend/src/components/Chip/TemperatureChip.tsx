@@ -14,7 +14,7 @@ export function TemperatureChip({ temperature, targetTemperature }: TemperatureC
 		<Chip
 			tooltip="Current temperature"
 			className={clsx({
-				"justify-between": true,
+				"animate-in fade-in justify-between": true,
 				"text-success": temperatureWithinBoundary,
 				"text-error": !temperatureWithinBoundary,
 			})}
