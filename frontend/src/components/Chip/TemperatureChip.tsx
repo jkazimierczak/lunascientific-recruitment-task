@@ -1,5 +1,6 @@
 import { clsx } from "clsx";
 import { Thermometer } from "lucide-react";
+import { Chip } from "@/components/Chip/Chip";
 
 type TemperatureChipProps = {
 	temperature: number;
@@ -10,16 +11,15 @@ export function TemperatureChip({ temperature, targetTemperature }: TemperatureC
 	const temperatureWithinBoundary = Math.abs(temperature - targetTemperature) <= 0.5;
 
 	return (
-		<div
+		<Chip
 			className={clsx({
-				"flex w-20 min-w-fit items-center justify-between gap-1.5 rounded bg-neutral-100 px-1.5 py-0.5":
-					true,
+				"w-20 min-w-fit justify-between": true,
 				"text-success": temperatureWithinBoundary,
 				"text-error": !temperatureWithinBoundary,
 			})}
 		>
 			<Thermometer className="h-3 w-3 fill-current" />
 			{temperature} °C
-		</div>
+		</Chip>
 	);
 }

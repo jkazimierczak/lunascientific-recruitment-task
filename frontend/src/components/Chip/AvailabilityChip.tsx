@@ -1,5 +1,6 @@
 import { Circle } from "lucide-react";
 import { clsx } from "clsx";
+import { Chip } from "./Chip";
 
 type AvailabilityChipProps = {
 	isAvailable: boolean;
@@ -21,7 +22,7 @@ export function AvailabilityChip({
 	const displayText = isAvailable ? text?.available : text?.unavailable;
 
 	return (
-		<div className="flex w-fit items-center gap-1.5 rounded bg-neutral-100 px-1.5 py-0.5 text-neutral-500">
+		<Chip className="w-fit">
 			<Circle
 				className={clsx({
 					"h-3 w-3": true,
@@ -29,6 +30,6 @@ export function AvailabilityChip({
 				})}
 			/>
 			{displayText}
-		</div>
+		</Chip>
 	);
 }
