@@ -1,6 +1,7 @@
 import { clsx } from "clsx";
 import { Thermometer } from "lucide-react";
 import { Chip } from "@/components/Chip/Chip";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 
 type TemperatureChipProps = {
 	temperature: number;
@@ -11,15 +12,24 @@ export function TemperatureChip({ temperature, targetTemperature }: TemperatureC
 	const temperatureWithinBoundary = Math.abs(temperature - targetTemperature) <= 0.5;
 
 	return (
-		<Chip
-			className={clsx({
-				"w-20 min-w-fit justify-between": true,
-				"text-success": temperatureWithinBoundary,
-				"text-error": !temperatureWithinBoundary,
-			})}
-		>
-			<Thermometer className="h-3 w-3 fill-current" />
-			{temperature} °C
-		</Chip>
+		<TooltipProvider>
+			<Tooltip>
+				<TooltipTrigger className="w-20 min-w-fit">
+					<Chip
+						className={clsx({
+							"justify-between": true,
+							"text-success": temperatureWithinBoundary,
+							"text-error": !temperatureWithinBoundary,
+						})}
+					>
+						<Thermometer className="h-3 w-3 fill-current" />
+						{temperature} °C
+					</Chip>
+				</TooltipTrigger>
+				<TooltipContent>
+					<p>Current temperature</p>
+				</TooltipContent>
+			</Tooltip>
+		</TooltipProvider>
 	);
 }
