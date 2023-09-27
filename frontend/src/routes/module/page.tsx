@@ -4,9 +4,12 @@ import { AvailabilityChip, TemperatureChip } from "@/components";
 import { Button } from "@/components/ui/button";
 import { Heading } from "@/components/Heading";
 import { useGetModule } from "@/hooks/useGetModule";
+import { useSocketData } from "@/hooks/useSocketData";
 
 export function ModulePage() {
 	const { data: moduleInfo, isLoading } = useGetModule();
+	const { getModuleReadingById } = useSocketData();
+	const temperature = getModuleReadingById(moduleInfo?.id || "");
 
 	if (isLoading) return <p>Loading</p>;
 
@@ -26,7 +29,9 @@ export function ModulePage() {
 			</header>
 			<div className="mb-4 ml-8 flex gap-2">
 				<AvailabilityChip isAvailable={available} />
-				{available && <TemperatureChip temperature={10} targetTemperature={targetTemperature} />}
+				{available && temperature && (
+					<TemperatureChip temperature={temperature} targetTemperature={targetTemperature} />
+				)}
 			</div>
 			<div className="mb-4">
 				<h3 className="mb-1 text-lg font-bold">Description</h3>

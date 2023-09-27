@@ -1,10 +1,24 @@
 import { Circle } from "lucide-react";
 import { clsx } from "clsx";
 
-type AvailabilityChipProps = { isAvailable: boolean };
+type AvailabilityChipProps = {
+	isAvailable: boolean;
+	text?: {
+		available: string;
+		unavailable: string;
+	};
+};
 
-export function AvailabilityChip({ isAvailable }: AvailabilityChipProps) {
-	const displayText = isAvailable ? "Available" : "Unavailable";
+const defaultDisplayText = {
+	available: "Available",
+	unavailable: "Unavailable",
+};
+
+export function AvailabilityChip({
+	isAvailable,
+	text = defaultDisplayText,
+}: AvailabilityChipProps) {
+	const displayText = isAvailable ? text?.available : text?.unavailable;
 
 	return (
 		<div className="flex w-fit items-center gap-1.5 rounded bg-neutral-100 px-1.5 py-0.5 text-neutral-500">

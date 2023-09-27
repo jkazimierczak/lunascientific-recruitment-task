@@ -12,7 +12,8 @@ export function TemperatureChip({ temperature, targetTemperature }: TemperatureC
 	return (
 		<div
 			className={clsx({
-				"flex w-fit items-center gap-1.5 rounded bg-neutral-100 px-1.5 py-0.5": true,
+				"flex w-20 min-w-fit items-center justify-between gap-1.5 rounded bg-neutral-100 px-1.5 py-0.5":
+					true,
 				"text-success": temperatureWithinBoundary,
 				"text-error": !temperatureWithinBoundary,
 			})}

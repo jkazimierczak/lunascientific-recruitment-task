@@ -7,3 +7,10 @@ export type ModuleInfo = {
 };
 
 export type ModuleInfoPatch = Pick<ModuleInfo, "name" | "description" | "targetTemperature">;
+
+export type ModuleSocketInfo = {
+	id: string;
+	temperature: number;
+};
+
+export type ModuleTemperatureReading = Map<ModuleSocketInfo["id"], ModuleSocketInfo["temperature"]>;
