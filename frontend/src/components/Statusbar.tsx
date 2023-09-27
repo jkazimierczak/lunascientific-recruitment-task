@@ -1,4 +1,4 @@
-import { AvailabilityChip } from "@/components/Chip/AvailabilityChip";
+import { AvailabilityChip } from "@/components/Chip";
 
 type StatusbarProps = {
 	isSocketConnected: boolean;
