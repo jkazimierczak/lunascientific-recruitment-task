@@ -4,9 +4,10 @@ import { useGetModules } from "@/api/modules/useGetModules";
 import { Module } from "@/components/Module";
 import { useSocketData } from "@/hooks/useSocketData";
 import { Statusbar } from "@/components/Statusbar";
+import { ModuleSkeleton } from "@/components/ModuleSkeleton";
 
 export function HomePage() {
-	const { data: modules } = useGetModules();
+	const { data: modules, isLoading } = useGetModules();
 	const hasAnyModules = !!modules?.length;
 
 	const { isConnected, getModuleReadingById } = useSocketData();
@@ -26,6 +27,13 @@ export function HomePage() {
 							<Link to={`/module/${module.id}`} key={module.id} className="block">
 								<Module module={module} temperature={getModuleTemperatureById(module.id)} />
 							</Link>
+						))}
+					</div>
+				)}
+				{isLoading && (
+					<div className="space-y-2">
+						{Array.from({ length: 3 }).map((_, i) => (
+							<ModuleSkeleton key={`ModuleSkeleton${i}`} />
 						))}
 					</div>
 				)}
