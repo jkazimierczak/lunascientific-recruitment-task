@@ -1,6 +1,5 @@
-import { Target } from "lucide-react";
 import { type ModuleInfo } from "@/api/types";
-import { AvailabilityChip, Chip, TemperatureChip } from "@/components/Chip";
+import { AvailabilityChip, TemperatureChip } from "@/components/Chip";
 import { TargetTemperatureChip } from "@/components/Chip/TargetTemperatureChip";
 
 type ModuleProps = {
