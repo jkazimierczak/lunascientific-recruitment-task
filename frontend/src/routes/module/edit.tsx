@@ -50,9 +50,9 @@ export function ModuleEditPage() {
 	const { id, name, description, targetTemperature } = moduleInfo;
 
 	const onSubmit = async (values: ModuleEditSchema) => {
-		form.reset(values);
 		await updateModule(id, values);
 		await mutate({ ...moduleInfo, ...values });
+		form.reset(values);
 	};
 
 	return (
@@ -65,57 +65,63 @@ export function ModuleEditPage() {
 			</header>
 			<Form {...form}>
 				<form onSubmit={form.handleSubmit(onSubmit, (err) => console.log("err", err))}>
-					<div className="ml-8">
-						<div className="mb-2">
-							<FormField
-								control={form.control}
-								name="name"
-								render={({ field }) => (
-									<FormItem>
-										<FormLabel>Name</FormLabel>
-										<FormControl>
-											<Input {...field} />
-										</FormControl>
-										<FormMessage />
-									</FormItem>
-								)}
-							/>
-						</div>
-						<div className="mb-2">
-							<FormField
-								control={form.control}
-								name="description"
-								render={({ field }) => (
-									<FormItem>
-										<FormLabel>Description</FormLabel>
-										<FormControl>
-											<Textarea {...field} rows={5} />
-										</FormControl>
-										<FormMessage />
-									</FormItem>
-								)}
-							/>
-						</div>
-						<div className="mb-4">
-							<FormField
-								control={form.control}
-								name="targetTemperature"
-								render={({ field }) => (
-									<FormItem>
-										<FormLabel>Target temperature</FormLabel>
-										<FormControl>
-											<Input {...field} type="number" min={0} max={40} step={0.5} />
-										</FormControl>
-										<FormMessage />
-									</FormItem>
-								)}
-							/>
-						</div>
+					<fieldset disabled={form.formState.isSubmitting}>
+						<div className="ml-8">
+							<div className="mb-2">
+								<FormField
+									control={form.control}
+									name="name"
+									render={({ field }) => (
+										<FormItem>
+											<FormLabel>Name</FormLabel>
+											<FormControl>
+												<Input {...field} />
+											</FormControl>
+											<FormMessage />
+										</FormItem>
+									)}
+								/>
+							</div>
+							<div className="mb-2">
+								<FormField
+									control={form.control}
+									name="description"
+									render={({ field }) => (
+										<FormItem>
+											<FormLabel>Description</FormLabel>
+											<FormControl>
+												<Textarea {...field} rows={5} />
+											</FormControl>
+											<FormMessage />
+										</FormItem>
+									)}
+								/>
+							</div>
+							<div className="mb-4">
+								<FormField
+									control={form.control}
+									name="targetTemperature"
+									render={({ field }) => (
+										<FormItem>
+											<FormLabel>Target temperature</FormLabel>
+											<FormControl>
+												<Input {...field} type="number" min={0} max={40} step={0.5} />
+											</FormControl>
+											<FormMessage />
+										</FormItem>
+									)}
+								/>
+							</div>
 
-						<Button className="w-full" disabled={!form.formState.isDirty}>
-							Save
-						</Button>
-					</div>
+							<Button
+								className="w-full"
+								disabled={!form.formState.isDirty}
+								isLoading={form.formState.isSubmitting}
+							>
+								Save
+							</Button>
+						</div>
+					</fieldset>
 				</form>
 			</Form>
 		</main>
