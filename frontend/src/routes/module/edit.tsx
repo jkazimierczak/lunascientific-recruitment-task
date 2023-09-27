@@ -1,14 +1,45 @@
 import { ChevronLeft } from "lucide-react";
 import { Link } from "react-router-dom";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useEffect } from "react";
 import { Heading } from "@/components/Heading";
 import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { useGetModule } from "@/hooks/useGetModule";
+import {
+	Form,
+	FormControl,
+	FormField,
+	FormItem,
+	FormLabel,
+	FormMessage,
+} from "@/components/ui/form";
+import {
+	defaultModuleEditValues,
+	type ModuleEditSchema,
+	moduleEditSchema,
+} from "@/validators/moduleSchema";
+import { updateModule } from "@/api/modules/updateModule";
 
 export function ModuleEditPage() {
-	const { data: moduleInfo, isLoading } = useGetModule();
+	const { data: moduleInfo, isLoading, mutate } = useGetModule();
+
+	const form = useForm<ModuleEditSchema>({
+		resolver: zodResolver(moduleEditSchema),
+		defaultValues: defaultModuleEditValues,
+	});
+
+	useEffect(() => {
+		if (isLoading) return;
+
+		form.reset({
+			name,
+			description,
+			targetTemperature,
+		});
+	}, [isLoading]);
 
 	if (isLoading) return <p>Loading</p>;
 
@@ -18,6 +49,12 @@ export function ModuleEditPage() {
 
 	const { id, name, description, targetTemperature } = moduleInfo;
 
+	const onSubmit = async (values: ModuleEditSchema) => {
+		form.reset(values);
+		await updateModule(id, values);
+		await mutate({ ...moduleInfo, ...values });
+	};
+
 	return (
 		<main>
 			<header className="mb-4 flex items-center gap-2">
@@ -26,43 +63,61 @@ export function ModuleEditPage() {
 				</Link>
 				<Heading>Edit module</Heading>
 			</header>
-			<form>
-				<div className="ml-8">
-					<div className="mb-2">
-						<Label htmlFor="name" className="mb-1">
-							Name
-						</Label>
-						<Input name="name" id="name" defaultValue={name} required />
+			<Form {...form}>
+				<form onSubmit={form.handleSubmit(onSubmit, (err) => console.log("err", err))}>
+					<div className="ml-8">
+						<div className="mb-2">
+							<FormField
+								control={form.control}
+								name="name"
+								render={({ field }) => (
+									<FormItem>
+										<FormLabel>Name</FormLabel>
+										<FormControl>
+											<Input {...field} />
+										</FormControl>
+										<FormMessage />
+									</FormItem>
+								)}
+							/>
+						</div>
+						<div className="mb-2">
+							<FormField
+								control={form.control}
+								name="description"
+								render={({ field }) => (
+									<FormItem>
+										<FormLabel>Description</FormLabel>
+										<FormControl>
+											<Textarea {...field} rows={5} />
+										</FormControl>
+										<FormMessage />
+									</FormItem>
+								)}
+							/>
+						</div>
+						<div className="mb-4">
+							<FormField
+								control={form.control}
+								name="targetTemperature"
+								render={({ field }) => (
+									<FormItem>
+										<FormLabel>Target temperature</FormLabel>
+										<FormControl>
+											<Input {...field} type="number" min={0} max={40} step={0.5} />
+										</FormControl>
+										<FormMessage />
+									</FormItem>
+								)}
+							/>
+						</div>
+
+						<Button className="w-full" disabled={!form.formState.isDirty}>
+							Save
+						</Button>
 					</div>
-					<div className="mb-2">
-						<Label htmlFor="description" className="mb-1">
-							Description
-						</Label>
-						<Textarea
-							name="description"
-							id="description"
-							defaultValue={description}
-							rows={4}
-							required
-						/>
-					</div>
-					<div className="mb-2">
-						<Label htmlFor="targetTemperature" className="mb-1">
-							Target temperature
-						</Label>
-						{/* TODO: Accept decimal numbers */}
-						<Input
-							type="number"
-							name="targetTemperature"
-							id="targetTemperature"
-							defaultValue={targetTemperature}
-							min={0}
-							max={40}
-						/>
-					</div>
-					<Button className="w-full">Save</Button>
-				</div>
-			</form>
+				</form>
+			</Form>
 		</main>
 	);
 }

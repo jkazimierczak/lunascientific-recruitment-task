@@ -10,22 +10,17 @@ export class ApiError extends ApplicationError {
 	}
 }
 
-export const isPlainObject = (value: unknown) => value?.constructor === Object;
-
 export async function customFetch(input: RequestInfo | URL, init?: RequestInit) {
 	let initOptions = init;
 
 	if (init?.body) {
-		if (Array.isArray(init.body) || isPlainObject(init.body)) {
-			initOptions = {
-				...initOptions,
-				body: JSON.stringify(initOptions?.body),
-				headers: {
-					"Content-Type": "application/json",
-					...initOptions?.headers,
-				},
-			};
-		}
+		initOptions = {
+			...initOptions,
+			headers: {
+				"Content-Type": "application/json",
+				...initOptions?.headers,
+			},
+		};
 	}
 
 	const res = await fetch(input, initOptions);
