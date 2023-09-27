@@ -51,7 +51,13 @@ export function ModuleEditPage() {
 
 	const onSubmit = async (values: ModuleEditSchema) => {
 		await updateModule(id, values);
-		await mutate({ ...moduleInfo, ...values });
+		await mutate(
+			{ ...moduleInfo, ...values },
+			{
+				populateCache: (updatedModule) => updatedModule,
+				revalidate: false,
+			},
+		);
 		form.reset(values);
 	};
 
