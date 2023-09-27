@@ -2,7 +2,7 @@ import { type ComponentProps } from "react";
 import { cn } from "@/lib/utils";
 
 interface ChipProps extends ComponentProps<"div"> {
-	className: string;
+	className?: string;
 	children: React.ReactNode;
 }
 

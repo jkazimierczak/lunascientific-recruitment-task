@@ -1,5 +1,7 @@
+import { Target } from "lucide-react";
 import { type ModuleInfo } from "@/api/types";
-import { AvailabilityChip, TemperatureChip } from "@/components/Chip";
+import { AvailabilityChip, Chip, TemperatureChip } from "@/components/Chip";
+import { TargetTemperatureChip } from "@/components/Chip/TargetTemperatureChip";
 
 type ModuleProps = {
 	module: ModuleInfo;
@@ -15,6 +17,7 @@ export function Module({
 			<h2 className="mb-2 text-xl font-semibold">{name}</h2>
 			<div className="flex gap-2">
 				<AvailabilityChip isAvailable={available} />
+				<TargetTemperatureChip targetTemperature={targetTemperature} />
 				{temperature && available && (
 					<TemperatureChip temperature={temperature} targetTemperature={targetTemperature} />
 				)}
