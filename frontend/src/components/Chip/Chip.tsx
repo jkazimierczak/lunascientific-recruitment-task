@@ -1,12 +1,14 @@
 import { type ComponentProps } from "react";
 import { cn } from "@/lib/utils";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 
 interface ChipProps extends ComponentProps<"div"> {
-	className?: string;
 	children: React.ReactNode;
+	className?: string;
+	tooltip?: string;
 }
 
-export function Chip({ className, children, ...props }: ChipProps) {
+function ChipLayout({ className, children, ...props }: ChipProps) {
 	return (
 		<div
 			className={cn(
@@ -17,5 +19,26 @@ export function Chip({ className, children, ...props }: ChipProps) {
 		>
 			{children}
 		</div>
+	);
+}
+
+export function Chip({ className, children, tooltip, ...props }: ChipProps) {
+	const chip = (
+		<ChipLayout className={className} {...props}>
+			{children}
+		</ChipLayout>
+	);
+
+	return tooltip ? (
+		<TooltipProvider>
+			<Tooltip>
+				<TooltipTrigger>{chip}</TooltipTrigger>
+				<TooltipContent>
+					<p>{tooltip}</p>
+				</TooltipContent>
+			</Tooltip>
+		</TooltipProvider>
+	) : (
+		chip
 	);
 }

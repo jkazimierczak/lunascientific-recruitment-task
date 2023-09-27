@@ -1,7 +1,6 @@
 import { Circle } from "lucide-react";
 import { clsx } from "clsx";
 import { Chip } from "./Chip";
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 
 type AvailabilityChipProps = {
 	isAvailable: boolean;
@@ -9,37 +8,31 @@ type AvailabilityChipProps = {
 		available: string;
 		unavailable: string;
 	};
+	tooltip?: string;
 };
 
 const defaultDisplayText = {
 	available: "Available",
 	unavailable: "Unavailable",
 };
+const defaultTooltip = "Module availability";
 
 export function AvailabilityChip({
 	isAvailable,
 	text = defaultDisplayText,
+	tooltip = defaultTooltip,
 }: AvailabilityChipProps) {
 	const displayText = isAvailable ? text?.available : text?.unavailable;
 
 	return (
-		<TooltipProvider>
-			<Tooltip>
-				<TooltipTrigger>
-					<Chip className="w-fit">
-						<Circle
-							className={clsx({
-								"h-3 w-3": true,
-								"fill-primary text-primary": isAvailable,
-							})}
-						/>
-						{displayText}
-					</Chip>
-				</TooltipTrigger>
-				<TooltipContent>
-					<p>Module availability</p>
-				</TooltipContent>
-			</Tooltip>
-		</TooltipProvider>
+		<Chip className="w-fit" tooltip={tooltip}>
+			<Circle
+				className={clsx({
+					"h-3 w-3": true,
+					"fill-primary text-primary": isAvailable,
+				})}
+			/>
+			{displayText}
+		</Chip>
 	);
 }

@@ -10,6 +10,7 @@ export function Statusbar({ isSocketConnected, className }: StatusbarProps) {
 		<div className={className}>
 			<AvailabilityChip
 				isAvailable={isSocketConnected}
+				tooltip="Realtime data status"
 				text={{ available: "Realtime", unavailable: "Realtime not available" }}
 			/>
 		</div>
