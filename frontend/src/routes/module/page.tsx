@@ -6,7 +6,7 @@ import { Heading } from "@/components/Heading";
 import { useGetModule } from "@/hooks/useGetModule";
 
 export function ModulePage() {
-	const { data: moduleInfo, isLoading, error } = useGetModule();
+	const { data: moduleInfo, isLoading } = useGetModule();
 
 	if (isLoading) return <p>Loading</p>;
 
