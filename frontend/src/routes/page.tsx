@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { useEffect } from "react";
 import { Heading } from "@/components/Heading";
 import { useGetModules } from "@/api/modules/useGetModules";
 import { Module } from "@/components/Module";
@@ -7,6 +8,7 @@ import { StatusChip } from "@/components/Chip/StatusChip";
 import { ModuleSkeleton } from "@/components/ModuleSkeleton";
 import { NetworkError } from "@/lib/fetcher";
 import { type ModuleInfo } from "@/api/types";
+import { usePing } from "@/api/usePing";
 
 function ModuleList({
 	modules,
@@ -37,14 +39,25 @@ function ModuleListSkeleton() {
 }
 
 export function HomePage() {
-	const { data: modules, isLoading, error } = useGetModules();
+	const { data: modules, isLoading, error, mutate } = useGetModules();
 	const { isConnected: isSocketConnected, getModuleReadingById } = useSocketData();
+	const isServerConnected = usePing();
+
+	useEffect(() => {
+		if (isServerConnected || (isSocketConnected && !isServerConnected)) {
+			mutate(undefined).catch(() => null);
+		}
+	}, [isServerConnected]);
 
 	const hasAnyModules = !!modules?.length;
 
 	return (
 		<>
-			<StatusChip isSocketConnected={isSocketConnected} className="mb-4" />
+			<StatusChip
+				isSocketConnected={isSocketConnected}
+				isServerConnected={isServerConnected}
+				className="mb-4"
+			/>
 
 			<main>
 				<Heading className="mb-4">Your Modules</Heading>
