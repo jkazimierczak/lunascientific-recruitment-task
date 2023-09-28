@@ -24,7 +24,7 @@ import {
 import { updateModule } from "@/api/modules/updateModule";
 
 export function ModuleEditPage() {
-	const { data: moduleInfo, isLoading, mutate } = useGetModule();
+	const { moduleInfo, isLoading, mutate } = useGetModule();
 
 	const form = useForm<ModuleEditSchema>({
 		resolver: zodResolver(moduleEditSchema),
@@ -70,7 +70,7 @@ export function ModuleEditPage() {
 				<Heading>Edit module</Heading>
 			</header>
 			<Form {...form}>
-				<form onSubmit={form.handleSubmit(onSubmit, (err) => console.log("err", err))}>
+				<form onSubmit={form.handleSubmit(onSubmit)}>
 					<fieldset disabled={form.formState.isSubmitting}>
 						<div className="ml-8">
 							<div className="mb-2">

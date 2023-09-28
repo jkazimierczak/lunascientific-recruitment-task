@@ -6,8 +6,6 @@ export type ModuleInfo = {
 	targetTemperature: number;
 };
 
-export type ModuleInfoPatch = Pick<ModuleInfo, "name" | "description" | "targetTemperature">;
-
 export type ModuleSocketInfo = {
 	id: string;
 	temperature: number;

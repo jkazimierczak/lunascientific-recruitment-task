@@ -2,44 +2,58 @@ import { Link } from "react-router-dom";
 import { Heading } from "@/components/Heading";
 import { useGetModules } from "@/api/modules/useGetModules";
 import { Module } from "@/components/Module";
-import { useSocketData } from "@/hooks/useSocketData";
-import { Statusbar } from "@/components/Statusbar";
+import { useSocketData } from "@/api/modules/useSocketData";
+import { StatusChip } from "@/components/Chip/StatusChip";
 import { ModuleSkeleton } from "@/components/ModuleSkeleton";
 import { NetworkError } from "@/lib/fetcher";
+import { type ModuleInfo } from "@/api/types";
+
+function ModuleList({
+	modules,
+	getModuleReadingById,
+}: {
+	modules: ModuleInfo[];
+	getModuleReadingById: (id: string) => number | null;
+}) {
+	return (
+		<div className="space-y-2">
+			{modules.map((module) => (
+				<Link to={`/module/${module.id}`} key={module.id} className="block">
+					<Module module={module} temperature={getModuleReadingById(module.id)} />
+				</Link>
+			))}
+		</div>
+	);
+}
+
+function ModuleListSkeleton() {
+	return (
+		<div className="space-y-2">
+			{Array.from({ length: 3 }).map((_, i) => (
+				<ModuleSkeleton key={`ModuleSkeleton${i}`} />
+			))}
+		</div>
+	);
+}
 
 export function HomePage() {
 	const { data: modules, isLoading, error } = useGetModules();
+	const { isConnected: isSocketConnected, getModuleReadingById } = useSocketData();
+
 	const hasAnyModules = !!modules?.length;
-
-	const { isConnected, getModuleReadingById } = useSocketData();
-
-	const getModuleTemperatureById = (id: string) => (isConnected ? getModuleReadingById(id) : null);
 
 	return (
 		<>
-			<Statusbar isSocketConnected={isConnected} className="mb-4" />
+			<StatusChip isSocketConnected={isSocketConnected} className="mb-4" />
 
 			<main>
 				<Heading className="mb-4">Your Modules</Heading>
-
 				{!error && (
 					<>
 						{hasAnyModules && (
-							<div className="space-y-2">
-								{modules.map((module) => (
-									<Link to={`/module/${module.id}`} key={module.id} className="block">
-										<Module module={module} temperature={getModuleTemperatureById(module.id)} />
-									</Link>
-								))}
-							</div>
+							<ModuleList modules={modules} getModuleReadingById={getModuleReadingById} />
 						)}
-						{isLoading && (
-							<div className="space-y-2">
-								{Array.from({ length: 3 }).map((_, i) => (
-									<ModuleSkeleton key={`ModuleSkeleton${i}`} />
-								))}
-							</div>
-						)}
+						{isLoading && <ModuleListSkeleton />}
 					</>
 				)}
 				{error && error instanceof NetworkError && <div>{error.message}</div>}

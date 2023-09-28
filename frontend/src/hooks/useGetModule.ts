@@ -7,5 +7,10 @@ type ModulePageParams = {
 
 export function useGetModule() {
 	const params = useParams<ModulePageParams>();
-	return useGetModuleById(params.moduleId as string);
+	const { data, ...swr } = useGetModuleById(params.moduleId as string);
+
+	return {
+		moduleInfo: data,
+		...swr,
+	};
 }

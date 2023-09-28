@@ -4,11 +4,11 @@ import { AvailabilityChip, TemperatureChip } from "@/components/Chip";
 import { Button } from "@/components/ui/button";
 import { Heading } from "@/components/Heading";
 import { useGetModule } from "@/hooks/useGetModule";
-import { useSocketData } from "@/hooks/useSocketData";
+import { useSocketData } from "@/api/modules/useSocketData";
 import { TargetTemperatureChip } from "@/components/Chip/TargetTemperatureChip";
 
 export function ModulePage() {
-	const { data: moduleInfo, isLoading } = useGetModule();
+	const { moduleInfo, isLoading } = useGetModule();
 	const { getModuleReadingById } = useSocketData();
 	const temperature = getModuleReadingById(moduleInfo?.id || "");
 

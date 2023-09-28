@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { socket } from "@/api/modules/socket";
+import { socket } from "@/api/socket";
 import { type ModuleSocketInfo, type ModuleTemperatureReading } from "@/api/types";
 
 export function useSocketData() {
