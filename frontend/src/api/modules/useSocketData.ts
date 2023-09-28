@@ -34,7 +34,7 @@ export function useSocketData() {
 	}, []);
 
 	function getModuleReadingById(id: string) {
-		if (!temperatureReading) return null;
+		if (!temperatureReading || !isConnected) return null;
 
 		return temperatureReading.get(id) ?? null;
 	}
