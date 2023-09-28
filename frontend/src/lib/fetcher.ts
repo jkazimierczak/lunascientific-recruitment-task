@@ -1,12 +1,24 @@
 import { baseApiUrl } from "./constants";
 import { ApplicationError } from "@/lib/error";
 
-export class ApiError extends ApplicationError {
+export class FetchError extends ApplicationError {
+	constructor(message: string, options?: ErrorOptions) {
+		super(message, options);
+	}
+}
+
+export class ApiError extends FetchError {
 	response: Response;
 
 	constructor(message: string, res: Response, options?: ErrorOptions) {
 		super(message, options);
 		this.response = res;
+	}
+}
+
+export class NetworkError extends FetchError {
+	constructor(message: string, options?: ErrorOptions) {
+		super(message, options);
 	}
 }
 
@@ -23,11 +35,19 @@ export async function customFetch(input: RequestInfo | URL, init?: RequestInit) 
 		};
 	}
 
-	const res = await fetch(input, initOptions);
-	if (!res.ok) {
-		throw new ApiError("Bad response", res);
+	try {
+		const res = await fetch(input, initOptions);
+		if (!res.ok) {
+			throw new ApiError("Bad response", res);
+		}
+		return res;
+	} catch (err) {
+		if (err instanceof TypeError) {
+			console.error(err?.message);
+			throw new NetworkError("No network connection");
+		}
+		throw err;
 	}
-	return res;
 }
 
 export const fetcher = (url: string | URL) =>
