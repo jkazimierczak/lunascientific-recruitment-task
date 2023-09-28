@@ -15,7 +15,7 @@ export function useSocketData() {
 			setIsConnected(false);
 		}
 
-		function onEvent(value: ModuleSocketInfo[]) {
+		function onModuleUpdate(value: ModuleSocketInfo[]) {
 			const data: Map<string, number> = new Map();
 			value.forEach((module) => data.set(module.id, module.temperature));
 
@@ -24,12 +24,12 @@ export function useSocketData() {
 
 		socket.on("connect", onConnect);
 		socket.on("disconnect", onDisconnect);
-		socket.on("moduleUpdate", onEvent);
+		socket.on("moduleUpdate", onModuleUpdate);
 
 		return () => {
 			socket.off("connect", onConnect);
 			socket.off("disconnect", onDisconnect);
-			socket.off("moduleUpdate", onEvent);
+			socket.off("moduleUpdate", onModuleUpdate);
 		};
 	}, []);
 
