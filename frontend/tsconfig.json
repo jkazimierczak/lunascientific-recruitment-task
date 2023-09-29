@@ -24,15 +24,16 @@
       "@/*": [
         "./src/*"
       ]
-    }
+    },
+    "types": ["vitest/globals"]
   },
   "include": [
     "**/*.ts",
     "**/*.tsx",
-    "./tests/setup.ts"
+    "./src/tests/setup.ts"
   ],
   "exclude": [
     "node_modules",
-    "tests"
+    "src/tests"
   ]
 }
