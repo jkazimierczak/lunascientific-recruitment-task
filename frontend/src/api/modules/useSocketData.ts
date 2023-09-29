@@ -41,3 +41,5 @@ export function useSocketData() {
 
 	return { isConnected, temperatureReading, getModuleReadingById };
 }
+
+export type UseSocketDataReturn = ReturnType<typeof useSocketData>;

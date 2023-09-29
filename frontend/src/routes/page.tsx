@@ -3,7 +3,7 @@ import { useEffect } from "react";
 import { Heading } from "@/components/Heading";
 import { useGetModules } from "@/api/modules/useGetModules";
 import { Module } from "@/components/Module";
-import { useSocketData } from "@/api/modules/useSocketData";
+import { useSocketData, type UseSocketDataReturn } from "@/api/modules/useSocketData";
 import { StatusChip } from "@/components/Chip/StatusChip";
 import { ModuleSkeleton } from "@/components/ModuleSkeleton";
 import { NetworkError } from "@/lib/fetcher";
@@ -15,7 +15,7 @@ function ModuleList({
 	getModuleReadingById,
 }: {
 	modules: ModuleInfo[];
-	getModuleReadingById: (id: string) => number | null;
+	getModuleReadingById: UseSocketDataReturn["getModuleReadingById"];
 }) {
 	return (
 		<div className="space-y-2">
