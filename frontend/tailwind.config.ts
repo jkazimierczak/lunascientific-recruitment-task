@@ -9,6 +9,7 @@ const config: Config = {
 			colors: {
 				primary: colors.green["500"],
 				success: colors.green["500"],
+				warning: colors.orange["500"],
 				error: colors.red["500"],
 			},
 			backgroundImage: {

@@ -35,7 +35,7 @@ export function StatusChip({ isSocketConnected, isServerConnected, className }: 
 						className={clsx({
 							"h-3 w-3": true,
 							"fill-success text-success": isConnected,
-							"fill-orange-500 text-orange-500": isOnlyServerConnected,
+							"fill-warning text-warning": isOnlyServerConnected || isOnlySocketConnected,
 						})}
 					/>
 					{getStatusText()}
