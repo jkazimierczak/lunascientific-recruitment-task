@@ -1,4 +1,7 @@
-import { defineConfig } from "vitest/config";
+/// <reference types="vitest" />
+/// <reference types="vite/client" />
+
+import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import viteTsconfigPaths from "vite-tsconfig-paths";
 
