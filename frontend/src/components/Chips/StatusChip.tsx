@@ -2,6 +2,7 @@ import { Circle } from "lucide-react";
 import { clsx } from "clsx";
 import { Ring } from "@uiball/loaders";
 import { Chip } from "./Chip";
+import { getStatesFromConnections } from "@/lib/connections";
 
 type StatusChipProps = {
 	isSocketConnected: boolean;
@@ -10,10 +11,8 @@ type StatusChipProps = {
 };
 
 export function StatusChip({ isSocketConnected, isServerConnected, className }: StatusChipProps) {
-	const isConnected = isServerConnected && isSocketConnected;
-	const isOnlyServerConnected = isServerConnected && !isSocketConnected;
-	const isOnlySocketConnected = !isServerConnected && isSocketConnected;
-	const isDisconnected = !isServerConnected && !isSocketConnected;
+	const { isConnected, isOnlyServerConnected, isOnlySocketConnected, isDisconnected } =
+		getStatesFromConnections(isSocketConnected, isServerConnected);
 
 	function getStatusText() {
 		if (isOnlyServerConnected) {

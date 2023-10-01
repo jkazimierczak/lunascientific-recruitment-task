@@ -13,6 +13,7 @@ import { Skeleton } from "@/components/UI/Skeleton";
 import { Button } from "@/components/UI/Button";
 import { Input } from "@/components/UI/Input";
 import { cn } from "@/lib/utils";
+import { getStatesFromConnections } from "@/lib/connections";
 
 function ModuleList({
 	modules,
@@ -59,8 +60,10 @@ export function HomePage() {
 	const { isConnected: isSocketConnected, getModuleReadingById } = useSocketData();
 	const isServerConnected = usePing();
 
-	const isDisconnected = !isServerConnected && !isSocketConnected;
-	const isOnlySocketConnected = !isServerConnected && isSocketConnected;
+	const { isDisconnected, isOnlySocketConnected } = getStatesFromConnections(
+		isSocketConnected,
+		isServerConnected,
+	);
 
 	// Try to refetch data if socket connects first
 	useEffect(() => {
