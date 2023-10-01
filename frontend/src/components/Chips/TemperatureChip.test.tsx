@@ -2,7 +2,7 @@ import { render, screen } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
 import { TemperatureChip } from "./TemperatureChip";
 
-describe("TemperatureChip has correct text color when temperature", async () => {
+describe("TemperatureChip has correct text color when temperature", () => {
 	it("< 0.5 from target temperature", async () => {
 		render(<TemperatureChip temperature={1} targetTemperature={1} />);
 

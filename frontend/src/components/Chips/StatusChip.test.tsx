@@ -1,15 +1,16 @@
+/* eslint-disable testing-library/no-container,testing-library/no-node-access */
 import { render, screen } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
 import { StatusChip } from "./StatusChip";
 
-describe("StatusChip has correct text when", async () => {
+describe("StatusChip has correct text when", () => {
 	it("ws: true, backend: true", async () => {
 		const { container } = render(<StatusChip isSocketConnected={true} isServerConnected={true} />);
 
-		const chip = await screen.getByRole("button");
+		const chip = screen.getByRole("button");
 		expect(chip.textContent).toContain("Connected");
 
-		const iconClassnames = container.querySelector("svg").classList;
+		const iconClassnames = (container.querySelector("svg") as SVGElement).classList;
 		expect(iconClassnames.contains("text-success")).toBeTruthy();
 		expect(iconClassnames.contains("fill-success")).toBeTruthy();
 	});
@@ -17,10 +18,10 @@ describe("StatusChip has correct text when", async () => {
 	it("ws: true, backend: false", async () => {
 		const { container } = render(<StatusChip isSocketConnected={true} isServerConnected={false} />);
 
-		const chip = await screen.getByRole("button");
+		const chip = screen.getByRole("button");
 		expect(chip.textContent).toContain("Awaiting module info");
 
-		const iconClassnames = container.querySelector("svg").classList;
+		const iconClassnames = (container.querySelector("svg") as SVGElement).classList;
 		expect(iconClassnames.contains("text-warning")).toBeTruthy();
 		expect(iconClassnames.contains("fill-warning")).toBeTruthy();
 	});
@@ -28,10 +29,10 @@ describe("StatusChip has correct text when", async () => {
 	it("ws: false, backend: true", async () => {
 		const { container } = render(<StatusChip isSocketConnected={false} isServerConnected={true} />);
 
-		const chip = await screen.getByRole("button");
+		const chip = screen.getByRole("button");
 		expect(chip.textContent).toContain("Awaiting realtime-data");
 
-		const iconClassnames = container.querySelector("svg").classList;
+		const iconClassnames = (container.querySelector("svg") as SVGElement).classList;
 		expect(iconClassnames.contains("text-warning")).toBeTruthy();
 		expect(iconClassnames.contains("fill-warning")).toBeTruthy();
 	});
@@ -41,9 +42,9 @@ describe("StatusChip has correct text when", async () => {
 			<StatusChip isSocketConnected={false} isServerConnected={false} />,
 		);
 
-		const chip = await screen.getByRole("button");
+		const chip = screen.getByRole("button");
 		expect(chip.textContent).toContain("Awaiting connection");
-		const ringLoader = await container.querySelector("svg");
-		expect(ringLoader.classList.contains("Ring").toString()).toBeTruthy();
+		const ringLoaderClasses = (container.querySelector("svg") as SVGElement).classList;
+		expect(ringLoaderClasses.contains("Ring").toString()).toBeTruthy();
 	});
 });
