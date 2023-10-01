@@ -54,14 +54,17 @@ function ModuleListSkeleton() {
 }
 
 export function HomePage() {
+	const [searchInputValue, setSearchInputValue] = useState("");
 	const { data: modules, isLoading, error, mutate } = useGetModules();
 	const { isConnected: isSocketConnected, getModuleReadingById } = useSocketData();
 	const isServerConnected = usePing();
-	const [searchInputValue, setSearchInputValue] = useState("");
+
+	const isDisconnected = !isServerConnected && !isSocketConnected;
+	const isOnlySocketConnected = !isServerConnected && isSocketConnected;
 
 	// Try to refetch data if socket connects first
 	useEffect(() => {
-		if (isServerConnected || (isSocketConnected && !isServerConnected)) {
+		if (isServerConnected || isOnlySocketConnected) {
 			mutate(undefined).catch(() => null);
 		}
 	}, [isServerConnected]);
@@ -104,7 +107,7 @@ export function HomePage() {
 						/>
 						{hasAnyModules && (
 							<ModuleList
-								className={cn(!isSocketConnected && !isServerConnected && "opacity-50")}
+								className={cn(isDisconnected && "pointer-events-none opacity-50")}
 								modules={filteredModules}
 								getModuleReadingById={getModuleReadingById}
 							/>
