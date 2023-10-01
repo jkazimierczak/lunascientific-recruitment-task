@@ -60,7 +60,7 @@ app.get("/modules/:id", (req, res) => {
 
 app.post("/modules", (req, res) => {
     const { name, description, targetTemperature } = req.body;
-    if (!name || !description || !targetTemperature) {
+    if (!name || !description || (!targetTemperature && targetTemperature !== 0)) {
         return res.status(400).send("Missing required parameters");
     }
 
