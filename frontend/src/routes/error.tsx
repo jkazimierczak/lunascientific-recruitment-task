@@ -14,9 +14,9 @@ export function Error() {
 		<div id="error-page">
 			<Heading className="mb-4">Oops!</Heading>
 			<p className="mb-1">Sorry, an unexpected error has occurred:</p>
-			<pre className="rounded bg-neutral-900 px-4 py-2 text-white">
+			<p className="rounded bg-neutral-900 px-4 py-2 font-mono text-white">
 				{error.statusText || error.message}
-			</pre>
+			</p>
 
 			<Button asChild className="mt-4 w-full">
 				<Link to="/">
