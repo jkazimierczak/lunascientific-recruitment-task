@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Plus } from "lucide-react";
 import { Heading } from "@/components/Heading";
 import { useGetModules } from "@/api/modules/useGetModules";
@@ -11,6 +11,7 @@ import { type ModuleInfo } from "@/api/types";
 import { usePing } from "@/api/usePing";
 import { Skeleton } from "@/components/UI/Skeleton";
 import { Button } from "@/components/UI/Button";
+import { Input } from "@/components/UI/Input";
 
 function ModuleList({
 	modules,
@@ -53,6 +54,7 @@ export function HomePage() {
 	const { data: modules, isLoading, error, mutate } = useGetModules();
 	const { isConnected: isSocketConnected, getModuleReadingById } = useSocketData();
 	const isServerConnected = usePing();
+	const [search, setSearch] = useState("");
 
 	useEffect(() => {
 		if (isServerConnected || (isSocketConnected && !isServerConnected)) {
@@ -60,7 +62,14 @@ export function HomePage() {
 		}
 	}, [isServerConnected]);
 
-	const hasAnyModules = !!modules?.length;
+	const filteredModules: ModuleInfo[] | undefined = search
+		? modules?.filter((module) => module.name.toLowerCase().includes(search))
+		: modules;
+	const hasAnyModules = !!filteredModules?.length;
+
+	function handleSearchChange(e: React.ChangeEvent<HTMLInputElement>) {
+		setSearch(e.target.value);
+	}
 
 	return (
 		<>
@@ -79,10 +88,11 @@ export function HomePage() {
 						</Link>
 					</Button>
 				</div>
+				<Input placeholder="Search for module" onChange={handleSearchChange} className="mb-4" />
 				{!error && (
 					<>
 						{hasAnyModules && (
-							<ModuleList modules={modules} getModuleReadingById={getModuleReadingById} />
+							<ModuleList modules={filteredModules} getModuleReadingById={getModuleReadingById} />
 						)}
 						{isLoading && <ModuleListSkeleton />}
 					</>
