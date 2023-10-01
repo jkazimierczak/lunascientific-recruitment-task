@@ -5,10 +5,10 @@ import { useGetModules } from "@/api/modules/useGetModules";
 import { Module } from "@/components/Module";
 import { useSocketData, type UseSocketDataReturn } from "@/api/modules/useSocketData";
 import { StatusChip } from "@/components/Chips/StatusChip";
-import { ModuleSkeleton } from "@/components/ModuleSkeleton";
 import { NetworkError } from "@/lib/fetcher";
 import { type ModuleInfo } from "@/api/types";
 import { usePing } from "@/api/usePing";
+import { Skeleton } from "@/components/UI/Skeleton";
 
 function ModuleList({
 	modules,
@@ -24,6 +24,15 @@ function ModuleList({
 					<Module module={module} temperature={getModuleReadingById(module.id)} />
 				</Link>
 			))}
+		</div>
+	);
+}
+
+function ModuleSkeleton() {
+	return (
+		<div className="cursor-progress rounded border border-neutral-300/80 px-4 py-2 transition-all">
+			<Skeleton className="mb-2 h-7 w-3/5" />
+			<Skeleton className="h-7" />
 		</div>
 	);
 }

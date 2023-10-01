@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect } from "react";
+import { Jelly, Ring } from "@uiball/loaders";
 import { Heading } from "@/components/Heading";
 import { Input } from "@/components/UI/Input";
 import { Textarea } from "@/components/UI/Textarea";
@@ -23,8 +24,25 @@ import {
 } from "@/validators/moduleSchema";
 import { updateModule } from "@/api/modules/updateModule";
 
+function ModuleEditPageSkeleton() {
+	return (
+		<main>
+			<header className="mb-6 flex items-center gap-2">
+				<ChevronLeft className="invisible" />
+				<Heading>Edit module</Heading>
+			</header>
+			<div className="flex animate-pulse flex-col items-center justify-center">
+				<Jelly />
+				<p className="mt-6">Loading</p>
+			</div>
+		</main>
+	);
+}
+
 export function ModuleEditPage() {
 	const { moduleInfo, isLoading, mutate } = useGetModule();
+	// const { moduleInfo, mutate } = useGetModule();
+	// const isLoading = true;
 
 	const form = useForm<ModuleEditSchema>({
 		resolver: zodResolver(moduleEditSchema),
@@ -41,7 +59,7 @@ export function ModuleEditPage() {
 		});
 	}, [isLoading]);
 
-	if (isLoading) return <p>Loading</p>;
+	if (isLoading) return <ModuleEditPageSkeleton />;
 
 	if (!moduleInfo) {
 		throw new Error("404: Module not found");
@@ -71,7 +89,7 @@ export function ModuleEditPage() {
 			</header>
 			<Form {...form}>
 				<form onSubmit={form.handleSubmit(onSubmit)}>
-					<fieldset disabled={form.formState.isSubmitting}>
+					<fieldset disabled={form.formState.isSubmitting} className="animate-in fade-in">
 						<div className="ml-8">
 							<div className="mb-2">
 								<FormField
