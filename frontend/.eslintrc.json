@@ -4,10 +4,12 @@
     "@typescript-eslint",
     "import",
     "react",
-    "simple-import-sort"
+    "simple-import-sort",
+    "vitest"
   ],
   "parserOptions": {
-    "project": "tsconfig.json"
+    "parser": "@typescript-eslint/parser",
+    "project": "./tsconfig.json"
   },
   "extends": [
     "plugin:@typescript-eslint/recommended",
@@ -17,7 +19,8 @@
     "plugin:react-hooks/recommended",
     "plugin:react/recommended",
     "prettier",
-    "plugin:testing-library/react"
+    "plugin:testing-library/react",
+    "plugin:vitest/recommended"
   ],
   "rules": {
     // Don't require explicit React import
@@ -99,7 +102,9 @@
         "allowNumber": true,
         "allowBoolean": true
       }
-    ]
+    ],
+    // allow non-exhaustive hook deps
+    "react-hooks/exhaustive-deps": "off"
   },
   "overrides": [
     {
@@ -124,6 +129,7 @@
   "ignorePatterns": [
     "*.js",
     "*.jsx",
-    "dist"
+    "dist",
+    "src/tests/setup.ts"
   ]
 }
