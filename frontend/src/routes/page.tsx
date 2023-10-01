@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { type ComponentProps, useEffect, useState } from "react";
 import { Plus } from "lucide-react";
 import { Heading } from "@/components/Heading";
 import { useGetModules } from "@/api/modules/useGetModules";
@@ -12,16 +12,19 @@ import { usePing } from "@/api/usePing";
 import { Skeleton } from "@/components/UI/Skeleton";
 import { Button } from "@/components/UI/Button";
 import { Input } from "@/components/UI/Input";
+import { cn } from "@/lib/utils";
 
 function ModuleList({
 	modules,
 	getModuleReadingById,
+	className,
+	...props
 }: {
 	modules: ModuleInfo[];
 	getModuleReadingById: UseSocketDataReturn["getModuleReadingById"];
-}) {
+} & ComponentProps<"div">) {
 	return (
-		<div className="space-y-2">
+		<div className={cn("space-y-2", className)} {...props}>
 			{modules.map((module) => (
 				<Link to={`/module/${module.id}`} key={module.id} className="block">
 					<Module module={module} temperature={getModuleReadingById(module.id)} />
@@ -54,7 +57,7 @@ export function HomePage() {
 	const { data: modules, isLoading, error, mutate } = useGetModules();
 	const { isConnected: isSocketConnected, getModuleReadingById } = useSocketData();
 	const isServerConnected = usePing();
-	const [search, setSearch] = useState("");
+	const [searchInputValue, setSearchInputValue] = useState("");
 
 	// Try to refetch data if socket connects first
 	useEffect(() => {
@@ -63,13 +66,13 @@ export function HomePage() {
 		}
 	}, [isServerConnected]);
 
-	const filteredModules: ModuleInfo[] | undefined = search
-		? modules?.filter((module) => module.name.toLowerCase().includes(search))
+	const filteredModules: ModuleInfo[] | undefined = searchInputValue
+		? modules?.filter((module) => module.name.toLowerCase().includes(searchInputValue))
 		: modules;
 	const hasAnyModules = !!filteredModules?.length;
 
 	function handleSearchChange(e: React.ChangeEvent<HTMLInputElement>) {
-		setSearch(e.target.value);
+		setSearchInputValue(e.target.value);
 	}
 
 	return (
@@ -93,9 +96,18 @@ export function HomePage() {
 				</div>
 				{!error && (
 					<>
-						<Input placeholder="Search for module" onChange={handleSearchChange} className="mb-4" />
+						<Input
+							placeholder="Search for module"
+							onChange={handleSearchChange}
+							value={searchInputValue}
+							className="mb-4"
+						/>
 						{hasAnyModules && (
-							<ModuleList modules={filteredModules} getModuleReadingById={getModuleReadingById} />
+							<ModuleList
+								className={cn(!isSocketConnected && !isServerConnected && "opacity-50")}
+								modules={filteredModules}
+								getModuleReadingById={getModuleReadingById}
+							/>
 						)}
 						{isLoading && <ModuleListSkeleton />}
 					</>
