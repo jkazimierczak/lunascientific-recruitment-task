@@ -1,7 +1,7 @@
 import { Circle } from "lucide-react";
 import { clsx } from "clsx";
 import { Ring } from "@uiball/loaders";
-import { Chip } from "@/components/Chip";
+import { Chip } from "./Chip";
 
 type StatusChipProps = {
 	isSocketConnected: boolean;

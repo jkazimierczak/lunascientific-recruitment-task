@@ -1,11 +1,10 @@
 import { ChevronLeft, Pencil } from "lucide-react";
 import { Link } from "react-router-dom";
-import { AvailabilityChip, TemperatureChip } from "@/components/Chip";
-import { Button } from "@/components/ui/button";
+import { TargetTemperatureChip, AvailabilityChip, TemperatureChip } from "@/components/Chips";
+import { Button } from "@/components/UI/Button";
 import { Heading } from "@/components/Heading";
 import { useGetModule } from "@/hooks/useGetModule";
 import { useSocketData } from "@/api/modules/useSocketData";
-import { TargetTemperatureChip } from "@/components/Chip/TargetTemperatureChip";
 
 export function ModulePage() {
 	const { moduleInfo, isLoading } = useGetModule();

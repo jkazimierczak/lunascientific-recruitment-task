@@ -1,4 +1,4 @@
-import { Skeleton } from "@/components/ui/skeleton";
+import { Skeleton } from "@/components/UI/Skeleton";
 
 export function ModuleSkeleton() {
 	return (

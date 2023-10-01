@@ -1,7 +1,7 @@
 // eslint-disable-next-line testing-library/no-manual-cleanup
 import { render, screen, cleanup } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
-import { AvailabilityChip } from "@/components/Chip/AvailabilityChip";
+import { AvailabilityChip } from "@/components/Chips";
 
 describe("AvailabilityChip has correct text for different prop types", async () => {
 	it("type: string", async () => {

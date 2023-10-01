@@ -4,7 +4,7 @@ import { Heading } from "@/components/Heading";
 import { useGetModules } from "@/api/modules/useGetModules";
 import { Module } from "@/components/Module";
 import { useSocketData, type UseSocketDataReturn } from "@/api/modules/useSocketData";
-import { StatusChip } from "@/components/Chip/StatusChip";
+import { StatusChip } from "@/components/Chips/StatusChip";
 import { ModuleSkeleton } from "@/components/ModuleSkeleton";
 import { NetworkError } from "@/lib/fetcher";
 import { type ModuleInfo } from "@/api/types";

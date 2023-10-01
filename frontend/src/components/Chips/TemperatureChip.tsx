@@ -1,6 +1,6 @@
 import { clsx } from "clsx";
 import { Thermometer } from "lucide-react";
-import { Chip } from "@/components/Chip/Chip";
+import { Chip } from "./Chip";
 
 type TemperatureChipProps = {
 	temperature: number;
@@ -14,7 +14,7 @@ export function TemperatureChip({ temperature, targetTemperature }: TemperatureC
 		<Chip
 			tooltip="Current temperature"
 			className={clsx({
-				"animate-in fade-in justify-between": true,
+				"justify-between animate-in fade-in": true,
 				"text-success": temperatureWithinBoundary,
 				"text-error": !temperatureWithinBoundary,
 			})}

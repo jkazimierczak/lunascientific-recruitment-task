@@ -1,5 +1,5 @@
 import { Crosshair } from "lucide-react";
-import { Chip } from "@/components/Chip/Chip";
+import { Chip } from "./Chip";
 
 type TargetTemperatureChipProps = {
 	targetTemperature: number;

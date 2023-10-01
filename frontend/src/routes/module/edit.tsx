@@ -4,9 +4,9 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect } from "react";
 import { Heading } from "@/components/Heading";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
-import { Button } from "@/components/ui/button";
+import { Input } from "@/components/UI/Input";
+import { Textarea } from "@/components/UI/Textarea";
+import { Button } from "@/components/UI/Button";
 import { useGetModule } from "@/hooks/useGetModule";
 import {
 	Form,
@@ -15,7 +15,7 @@ import {
 	FormItem,
 	FormLabel,
 	FormMessage,
-} from "@/components/ui/form";
+} from "@/components/UI/Form";
 import {
 	defaultModuleEditValues,
 	type ModuleEditSchema,

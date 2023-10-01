@@ -1,6 +1,5 @@
+import { AvailabilityChip, TemperatureChip, TargetTemperatureChip } from "@/components/Chips";
 import { type ModuleInfo } from "@/api/types";
-import { AvailabilityChip, TemperatureChip } from "@/components/Chip";
-import { TargetTemperatureChip } from "@/components/Chip/TargetTemperatureChip";
 
 type ModuleProps = {
 	module: ModuleInfo;
