@@ -47,7 +47,7 @@ export function ModulePage() {
 			<div className="mb-4 ml-8 flex gap-2">
 				<AvailabilityChip isAvailable={available} />
 				<TargetTemperatureChip targetTemperature={targetTemperature} />
-				{available && temperature && (
+				{available && (temperature || temperature === 0) && (
 					<TemperatureChip temperature={temperature} targetTemperature={targetTemperature} />
 				)}
 			</div>

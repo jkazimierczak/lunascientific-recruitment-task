@@ -16,7 +16,7 @@ export function Module({
 			<div className="flex gap-2">
 				<AvailabilityChip isAvailable={available} />
 				<TargetTemperatureChip targetTemperature={targetTemperature} />
-				{temperature && available && (
+				{(temperature || temperature === 0) && available && (
 					<TemperatureChip temperature={temperature} targetTemperature={targetTemperature} />
 				)}
 			</div>
