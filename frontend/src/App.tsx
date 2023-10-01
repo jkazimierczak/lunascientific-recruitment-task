@@ -4,6 +4,8 @@ import { HomePage } from "@/routes/page";
 import { Error } from "@/routes/error";
 import { ModulePage } from "@/routes/module/page";
 import { ModuleEditPage } from "@/routes/module/edit";
+import { AddModulePage } from "@/routes/module/add/page";
+import { Toaster } from "@/components/UI/Toaster";
 
 const router = createBrowserRouter([
 	{
@@ -12,10 +14,16 @@ const router = createBrowserRouter([
 		errorElement: <Error />,
 	},
 	{
+		path: "module/add",
+		element: <AddModulePage />,
+		errorElement: <Error />,
+	},
+	{
 		path: "module/:moduleId",
 		element: <ModulePage />,
 		errorElement: <Error />,
 	},
+
 	{
 		path: "module/:moduleId/edit",
 		element: <ModuleEditPage />,
@@ -29,6 +37,7 @@ export function App() {
 			<div className="mx-5 my-6 flex-grow">
 				<RouterProvider router={router} />
 			</div>
+			<Toaster />
 		</div>
 	);
 }

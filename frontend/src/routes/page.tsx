@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { useEffect } from "react";
+import { Plus } from "lucide-react";
 import { Heading } from "@/components/Heading";
 import { useGetModules } from "@/api/modules/useGetModules";
 import { Module } from "@/components/Module";
@@ -9,6 +10,7 @@ import { NetworkError } from "@/lib/fetcher";
 import { type ModuleInfo } from "@/api/types";
 import { usePing } from "@/api/usePing";
 import { Skeleton } from "@/components/UI/Skeleton";
+import { Button } from "@/components/UI/Button";
 
 function ModuleList({
 	modules,
@@ -69,7 +71,14 @@ export function HomePage() {
 			/>
 
 			<main>
-				<Heading className="mb-4">Your Modules</Heading>
+				<div className="mb-4 flex items-center justify-between">
+					<Heading>Your Modules</Heading>
+					<Button variant="outline" asChild>
+						<Link to="/module/add">
+							<Plus className="mr-2" size={16} /> Add
+						</Link>
+					</Button>
+				</div>
 				{!error && (
 					<>
 						{hasAnyModules && (
