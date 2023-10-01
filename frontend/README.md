@@ -13,7 +13,7 @@ To start the frontend:
 4. Run the project with `pnpm dev`.
 5. Open browser and go to [`http://localhost:5173/`](http://localhost:5173/).
 
-Frontend will run fine with backend being either online or offline.
+> Note: Frontend will run fine with backend being either online or offline.
 
 ## What I've added
 
@@ -30,7 +30,8 @@ Besides implementing just the obligatory requirements, I also added:
     - Non-existent module specified in URL,
     - No network connection (app will try to reconnect and refetch data).
 - Handled edge cases (mostly after going from offline to online):
-    - If connection to socket is established prior to fetching `/modules`, then app waits for the fetch to complete.
+    - If connection to socket is established prior to fetching `/modules`, then app waits for the fetch to complete
+      before showing module list.
 
-> When run on localhost it's everything works quite fast. To see the loaders, skeletons or status indicators in work
+> When run on localhost it's everything works quite fast. To see the loaders, skeletons or status indicators in work,
 > throttle the network from network tab once the app loads.
