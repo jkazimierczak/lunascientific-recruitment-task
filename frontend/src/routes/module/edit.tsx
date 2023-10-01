@@ -23,6 +23,7 @@ import {
 	moduleEditSchema,
 } from "@/validators/moduleSchema";
 import { updateModule } from "@/api/modules/updateModule";
+import { useToast } from "@/components/UI/useToast";
 
 function ModuleEditPageSkeleton() {
 	return (
@@ -40,6 +41,7 @@ function ModuleEditPageSkeleton() {
 }
 
 export function ModuleEditPage() {
+	const { toast } = useToast();
 	const { moduleInfo, isLoading, mutate } = useGetModule();
 
 	const form = useForm<ModuleEditSchema>({
@@ -75,6 +77,7 @@ export function ModuleEditPage() {
 			},
 		);
 		form.reset(values);
+		toast({ description: "Changes saved successfully.", variant: "success" });
 	};
 
 	return (
