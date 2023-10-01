@@ -1,5 +1,8 @@
 # Recruitment task - Aquaponic Iot Module - Frontend
 
+![hero](https://github.com/jkazimierczak/lunascientific-recruitment-task/assets/77862767/b94a0011-87dc-4045-b95e-eb92a85fe0f3)
+
+
 ## Usage
 
 To start the frontend:
