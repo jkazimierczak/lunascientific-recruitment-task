@@ -93,15 +93,9 @@ export function HomePage() {
 				</div>
 				{!error && (
 					<>
+						<Input placeholder="Search for module" onChange={handleSearchChange} className="mb-4" />
 						{hasAnyModules && (
-							<>
-								<Input
-									placeholder="Search for module"
-									onChange={handleSearchChange}
-									className="mb-4"
-								/>
-								<ModuleList modules={filteredModules} getModuleReadingById={getModuleReadingById} />
-							</>
+							<ModuleList modules={filteredModules} getModuleReadingById={getModuleReadingById} />
 						)}
 						{isLoading && <ModuleListSkeleton />}
 					</>
