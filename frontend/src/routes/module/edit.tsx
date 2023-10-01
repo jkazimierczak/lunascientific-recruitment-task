@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect } from "react";
-import { Jelly, Ring } from "@uiball/loaders";
+import { Jelly } from "@uiball/loaders";
 import { Heading } from "@/components/Heading";
 import { Input } from "@/components/UI/Input";
 import { Textarea } from "@/components/UI/Textarea";
