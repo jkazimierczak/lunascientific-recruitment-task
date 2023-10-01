@@ -41,8 +41,6 @@ function ModuleEditPageSkeleton() {
 
 export function ModuleEditPage() {
 	const { moduleInfo, isLoading, mutate } = useGetModule();
-	// const { moduleInfo, mutate } = useGetModule();
-	// const isLoading = true;
 
 	const form = useForm<ModuleEditSchema>({
 		resolver: zodResolver(moduleEditSchema),
