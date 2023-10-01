@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { ChevronLeft } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -25,6 +25,7 @@ import { useToast } from "@/components/UI/useToast";
 
 export function AddModulePage() {
 	const { toast } = useToast();
+	const navigate = useNavigate();
 	const form = useForm<ModuleEditSchema>({
 		resolver: zodResolver(moduleEditSchema),
 		defaultValues: defaultModuleEditValues,
@@ -34,6 +35,8 @@ export function AddModulePage() {
 		try {
 			await addModule(values);
 			form.reset(values);
+			toast({ description: "Module added successfully.", variant: "success" });
+			return navigate("/");
 		} catch (err) {
 			if (err instanceof ApiError) {
 				console.error(err);
