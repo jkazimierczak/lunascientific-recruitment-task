@@ -44,7 +44,7 @@ export function ModuleEditPage() {
 	if (isLoading) return <p>Loading</p>;
 
 	if (!moduleInfo) {
-		throw new Error("Module not found");
+		throw new Error("404: Module not found");
 	}
 
 	const { id, name, description, targetTemperature } = moduleInfo;
