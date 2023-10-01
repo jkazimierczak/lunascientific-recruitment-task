@@ -56,6 +56,7 @@ export function HomePage() {
 	const isServerConnected = usePing();
 	const [search, setSearch] = useState("");
 
+	// Try to refetch data if socket connects first
 	useEffect(() => {
 		if (isServerConnected || (isSocketConnected && !isServerConnected)) {
 			mutate(undefined).catch(() => null);
@@ -82,17 +83,25 @@ export function HomePage() {
 			<main>
 				<div className="mb-4 flex items-center justify-between">
 					<Heading>Your Modules</Heading>
-					<Button variant="outline" asChild>
-						<Link to="/module/add">
-							<Plus className="mr-2" size={16} /> Add
-						</Link>
-					</Button>
+					{isServerConnected && (
+						<Button variant="outline" asChild>
+							<Link to="/module/add">
+								<Plus className="mr-2" size={16} /> Add
+							</Link>
+						</Button>
+					)}
 				</div>
-				<Input placeholder="Search for module" onChange={handleSearchChange} className="mb-4" />
 				{!error && (
 					<>
 						{hasAnyModules && (
-							<ModuleList modules={filteredModules} getModuleReadingById={getModuleReadingById} />
+							<>
+								<Input
+									placeholder="Search for module"
+									onChange={handleSearchChange}
+									className="mb-4"
+								/>
+								<ModuleList modules={filteredModules} getModuleReadingById={getModuleReadingById} />
+							</>
 						)}
 						{isLoading && <ModuleListSkeleton />}
 					</>
